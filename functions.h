@@ -33,6 +33,7 @@ arma::irowvec Gene_Duplication(arma::imat& genes, int loci, int parent, int inhe
 
 void Change_Allele_Fitness(arma::mat& allele_fitness);
 void Change_Proportion_Allele_Fitness(arma::mat& allele_fitness,double prop);
+void Change_Proportion_Allele_Fitness_Normal_Dist(arma::mat& allele_fitness,double prop);
 
 void gene_freq_calc(arma::imat& genes, arma::mat& gene_frequency);
 void gene_freq_calc_all_alleles(arma::imat& genes, arma::mat& gene_frequency);

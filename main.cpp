@@ -446,7 +446,8 @@ int main(int argc, char **argv){
 				//cout << gen << endl;
 			}
 			*/
-			Change_Proportion_Allele_Fitness(allele_fitness, Env_flag);
+			//Change_Proportion_Allele_Fitness(allele_fitness, Env_flag);
+			Change_Proportion_Allele_Fitness_Normal_Dist(allele_fitness, Env_flag);
 		}
    		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    		
