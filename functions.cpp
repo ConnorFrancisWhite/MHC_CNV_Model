@@ -669,7 +669,7 @@ void Change_Proportion_Allele_Fitness_Normal_Dist(arma::mat& allele_fitness,doub
 		
 			if(rand()/((double)RAND_MAX) < prop){
 				mt19937 mt(seedgen());
-				std::normal_distribution<double> distribution(allele_fitness(exon1,exon2),0.2);
+				std::normal_distribution<double> distribution(allele_fitness(exon1,exon2),0.1);
 				
 				double temp = 2;			
 

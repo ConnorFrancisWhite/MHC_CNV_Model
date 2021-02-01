@@ -491,6 +491,9 @@ int main(int argc, char **argv){
 				
 				string freq_file = "data/allele_frequency_gen_" + to_string((gen+1)*2) + "_job_"  + number + ".mat";
 				gene_frequency.save(freq_file,arma::hdf5_binary);
+				
+				string fitness_file = "data/allele_fitness_gen_" + to_string((gen+1)*2) + "_job_"  + number + ".mat";
+				allele_fitness.save(fitness_file,arma::hdf5_binary);
 				/*
 				string Pop_Fitness_file = "data/Population_Fitness_gen_" + to_string((gen+1)*2) + "_job_"  + number + ".mat";
 				population_fitness.save(Pop_Fitness_file,arma::hdf5_binary);
