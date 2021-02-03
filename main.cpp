@@ -44,8 +44,11 @@ int main(int argc, char **argv){
  	int max_flag = atoi(argv[10]);
  	int min_flag = atoi(argv[11]);
  	int mean_flag = atoi(argv[12]);
- 	double Env_flag = atof(argv[13]);
- 	int Mult_Gen_flag = atoi(argv[14]);
+ 	double Env_flag_Uni = atof(argv[13]);
+ 	double Env_flag_Norm = atof(argv[14]);
+ 	double Sigma = atoi(argv[15]);
+ 	int Mult_Gen_flag = atoi(argv[16]);
+ 	int Detailed_End = atoi(argv[17]);
  	
  	int skip_gen = Mult_Gen_flag;
  	
@@ -61,9 +64,18 @@ int main(int argc, char **argv){
 	cout << "Max Flag " << max_flag << endl;
 	cout << "Min Flag " << min_flag << endl;
 	cout << "Mean Flag " << mean_flag << endl;
-	cout << "Env Flag " << Env_flag << endl;
-	cout << "Miltiple Generation Flag " << Mult_Gen_flag << endl;
+	cout << "Env Flag Uni " << Env_flag_Uni << endl;
+	cout << "Env Flag Norm " << Env_flag_Norm << endl;
 	
+	if(Env_flag_Norm > 0.0){
+		cout << "Sigma " << Sigma << endl;
+	}
+	
+	cout << "Miltiple Generations " << Mult_Gen_flag << endl;
+	
+	if(Mult_Gen_flag > 0){
+		cout << "Detailed End Flag " << Detailed_End << endl;
+	}
 	//Defining the fitness of each allele
 	arma::mat allele_fitness(exon_space, exon_space);
 	
@@ -279,14 +291,13 @@ int main(int argc, char **argv){
    		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    		//ENVIRONMENTAL CHANGE
    		//This part changes allele_fitness remember to turn off when running
-		if(Env_flag > 0.0){
-	   		/*
-	   		if((gen)%(exon_fitness_change/2) == 0 && gen < generations/2 - exon_fitness_change/4){
-				Change_Allele_Fitness(allele_fitness);
-				//cout << gen << endl;
-			}
-			*/
-			Change_Proportion_Allele_Fitness(allele_fitness, Env_flag);
+		if(Env_flag_Uni > 0.0){
+	  
+			Change_Proportion_Allele_Fitness(allele_fitness, Env_flag_Uni);
+		}
+		if(Env_flag_Norm > 0.0){
+	  
+			Change_Proportion_Allele_Fitness_Normal_Dist(allele_fitness, Env_flag_Norm,Sigma);
 		}
    		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    		
@@ -439,15 +450,13 @@ int main(int argc, char **argv){
    		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    		//ENVIRONMENTAL CHANGE
    		//This part changes allele_fitness remember to turn off when running
-		if(Env_flag > 0.0){
-	   		/*
-	   		if((gen)%(exon_fitness_change/2) == 0 && gen < generations/2 - exon_fitness_change/4){
-				Change_Allele_Fitness(allele_fitness);
-				//cout << gen << endl;
-			}
-			*/
-			//Change_Proportion_Allele_Fitness(allele_fitness, Env_flag);
-			Change_Proportion_Allele_Fitness_Normal_Dist(allele_fitness, Env_flag);
+		if(Env_flag_Uni > 0.0){
+	  		
+			Change_Proportion_Allele_Fitness(allele_fitness, Env_flag_Uni);
+		}
+		if(Env_flag_Norm > 0.0){
+	  		
+			Change_Proportion_Allele_Fitness_Normal_Dist(allele_fitness, Env_flag_Norm,Sigma);
 		}
    		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    		
@@ -482,8 +491,17 @@ int main(int argc, char **argv){
 		//Printing results part
 		//This is one gen before environment change
 		
+		
+		
 		if(Mult_Gen_flag){
-	
+			
+			//This triggers for more frequenctly recorded data in the last 1/4 timesteps. 
+			if(Detailed_End){
+				if((gen+1)*2 == generations - generations/4){
+			
+					skip_gen = skip_gen/10;
+				}
+			}
 			if((gen+1)*2%(skip_gen) == 0){
 				string gene_file = "data/gene_gen_" + to_string((gen+1)*2) + "_job_"  + number + ".mat";
 				genes_1.save(gene_file,arma::hdf5_binary);
@@ -503,26 +521,6 @@ int main(int argc, char **argv){
 			
 		}
 		
-		//This is one gen after environment change 
-		/*
-		if((gen-1)*2%(skip_gen) == 0){
-			string gene_file = "data/gene_gen_" + to_string((gen+1)*2) + "_job_"  + number + ".mat";
-			genes_1.save(gene_file,arma::hdf5_binary);
-		}
-		*/
-		
-		/* 
-		if(gen== 2000){
-			string gene_file = "data/gene_gen_" + to_string((gen+1)*2) + "_job_"  + number + ".mat";
-			genes_1.save(gene_file,arma::hdf5_binary);
-		}
-		*/
-		/* 
-		if(gen== 10000){
-			string gene_file = "data/gene_gen_" + to_string((gen+1)*2) + "_job_"  + number + ".mat";
-			genes_1.save(gene_file,arma::hdf5_binary);
-		}
-		*/
 	}
 	
 	//cerr<< "Time elapsed = " << elapsedTime << " secs"  <<endl;

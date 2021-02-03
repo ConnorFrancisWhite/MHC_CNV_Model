@@ -661,7 +661,7 @@ void Change_Proportion_Allele_Fitness(arma::mat& allele_fitness,double prop){
 
 }
 
-void Change_Proportion_Allele_Fitness_Normal_Dist(arma::mat& allele_fitness,double prop){
+void Change_Proportion_Allele_Fitness_Normal_Dist(arma::mat& allele_fitness,double prop,double sigma){
 		
 					
 	for(int exon1 = 0; exon1<allele_fitness.n_rows; exon1++){
@@ -669,7 +669,7 @@ void Change_Proportion_Allele_Fitness_Normal_Dist(arma::mat& allele_fitness,doub
 		
 			if(rand()/((double)RAND_MAX) < prop){
 				mt19937 mt(seedgen());
-				std::normal_distribution<double> distribution(allele_fitness(exon1,exon2),0.1);
+				std::normal_distribution<double> distribution(allele_fitness(exon1,exon2),sigma);
 				
 				double temp = 2;			
 
