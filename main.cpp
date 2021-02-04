@@ -46,7 +46,9 @@ int main(int argc, char **argv){
  	int mean_flag = atoi(argv[12]);
  	double Env_flag_Uni = atof(argv[13]);
  	double Env_flag_Norm = atof(argv[14]);
- 	double Sigma = atoi(argv[15]);
+ 	double Sigma = atof(argv[15]);
+ 	
+ 	//cout << Sigma << endl;
  	int Mult_Gen_flag = atoi(argv[16]);
  	int Detailed_End = atoi(argv[17]);
  	
