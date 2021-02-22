@@ -299,7 +299,7 @@ int main(int argc, char **argv){
 		}
 		if(Env_flag_Norm > 0.0){
 	  
-			Change_Proportion_Allele_Fitness_Normal_Dist(allele_fitness, Env_flag_Norm,Sigma);
+			Change_Proportion_Allele_Fitness_Normal_Dist_Boundary_Force(allele_fitness, Env_flag_Norm,Sigma);
 		}
    		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    		
@@ -458,7 +458,7 @@ int main(int argc, char **argv){
 		}
 		if(Env_flag_Norm > 0.0){
 	  		
-			Change_Proportion_Allele_Fitness_Normal_Dist(allele_fitness, Env_flag_Norm,Sigma);
+			Change_Proportion_Allele_Fitness_Normal_Dist_Boundary_Force(allele_fitness, Env_flag_Norm,Sigma);
 		}
    		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    		

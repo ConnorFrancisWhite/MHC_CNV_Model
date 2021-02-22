@@ -686,6 +686,34 @@ void Change_Proportion_Allele_Fitness_Normal_Dist(arma::mat& allele_fitness,doub
 
 }
 
+void Change_Proportion_Allele_Fitness_Normal_Dist_Boundary_Force(arma::mat& allele_fitness,double prop,double sigma){
+		
+					
+	for(int exon1 = 0; exon1<allele_fitness.n_rows; exon1++){
+		for(int exon2 = 0; exon2<allele_fitness.n_cols; exon2++){
+		
+			if(rand()/((double)RAND_MAX) < prop){
+				mt19937 mt(seedgen());
+				std::normal_distribution<double> distribution(allele_fitness(exon1,exon2),sigma);
+				
+				double temp = 2;			
+				temp = distribution(mt);
+				
+				
+				if(temp > 1){
+					temp = 1;
+				}
+				if(temp < 0){
+					temp = 0;
+				}
+				
+				allele_fitness(exon1,exon2) = temp;
+			}
+		}
+	}
+
+}
+
 void gene_freq_calc(arma::imat& genes, arma::mat& gene_frequency){
 
 	
