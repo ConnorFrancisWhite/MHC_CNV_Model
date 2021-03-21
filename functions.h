@@ -14,6 +14,8 @@ double fitness_calculation(int A1, int A2, double F1, double F2,  double p1, dou
 double fitness_calculation_mutliple_loci(arma::imat& genes, arma::mat& allele_fitness, arma::mat& gene_frequency);
 double fitness_calculation_mutliple_loci_mean(arma::irowvec genes, arma::mat allele_fitness, arma::mat gene_frequency);
 double fitness_calculation_max(arma::imat& genome, arma::mat& allele_fitness, arma::mat& gene_frequency);
+double fitness_calculation_max_soft_boundary(arma::imat& genome, arma::mat& allele_fitness, arma::mat& gene_frequency);
+
 double fitness_calculation_min(arma::imat& genome, arma::mat& allele_fitness, arma::mat& gene_frequency);
 double fitness_calculation_mean(arma::imat& genome, arma::mat& allele_fitness, arma::mat& gene_frequency);
 double fitness_calculation_mean_chrom(arma::imat& genome, arma::mat& allele_fitness, arma::mat& gene_frequency);

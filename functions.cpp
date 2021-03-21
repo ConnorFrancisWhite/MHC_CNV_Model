@@ -115,6 +115,71 @@ double fitness_calculation_max(arma::imat& genome, arma::mat& allele_fitness, ar
 	return output;
 }
 
+double fitness_calculation_max_soft_boundary(arma::imat& genome, arma::mat& allele_fitness, arma::mat& gene_frequency){
+	
+	double output = 0;
+	double handicap = 1.0;
+	
+	if(genome(0,genome.n_cols/2-1) != 0 || genome(1,genome.n_cols/2-1) != 0){
+		
+		output = 0;
+	}
+	else{
+		
+		int flag = 1;
+	
+		int counter = genome.n_cols/2-3;
+		
+		
+		
+		while(flag){
+			
+			 
+			if(counter == (genome.n_cols/2-1)/2 - 2){
+				
+				handicap = 1.0;
+				break;
+				
+			}
+				
+			if(genome(0,counter) != 0 || genome(1,counter) != 0){
+				
+				
+				
+				handicap = (double)((genome.n_cols/2-3 - counter))/((double)((genome.n_cols/2-1)/2));
+			
+				break;
+			}
+			
+			counter = counter - 2;
+		}
+	
+		for(int loci = 0; loci < genome.n_cols/2;loci++){
+		
+			//maternal
+			if(genome(0,loci*2) != 0){
+				if(output < allele_fitness(genome(0,loci*2)-1,genome(0,loci*2 + 1)-1)*(1 - gene_frequency(genome(0,loci*2)-1,genome(0,loci*2 + 1)-1))){
+					output = allele_fitness(genome(0,loci*2)-1,genome(0,loci*2 + 1)-1)*(1 - gene_frequency(genome(0,loci*2)-1,genome(0,loci*2 + 1)-1));
+				}
+
+			}
+			//paternal
+			if(genome(1,loci*2) != 0){
+				if(output < allele_fitness(genome(1,loci*2)-1,genome(1,loci*2 + 1)-1)*(1 - gene_frequency(genome(1,loci*2)-1,genome(1,loci*2 + 1)-1))){
+					output = allele_fitness(genome(1,loci*2)-1,genome(1,loci*2 + 1)-1)*(1 - gene_frequency(genome(1,loci*2)-1,genome(1,loci*2 + 1)-1));
+				}
+
+			}
+	
+		}
+	}
+	
+	output = output*handicap;
+	return output;
+	
+}
+
+
 double fitness_calculation_min(arma::imat& genome, arma::mat& allele_fitness, arma::mat& gene_frequency){
 	
 	double output = 1;

@@ -123,12 +123,13 @@ int main(int argc, char **argv){
 		}
 	}
 	
+	
 	exons = exon_space;
 	
 	//GENE FREQUENCY CALULATER/////////////////////////////////////////////////////////////
 	gene_freq_calc(genes_1, gene_frequency);
 	
-	
+
 	//defining intiital populaton fitness
 	arma::vec population_fitness(population);
 	population_fitness.fill(0);
@@ -140,8 +141,8 @@ int main(int argc, char **argv){
 	double (*fitness_function)(arma::imat& genome, arma::mat& allele_fitness, arma::mat& gene_frequency);
 	
 	if(max_flag == true){
-	
-		fitness_function =  &fitness_calculation_max;
+		//fitness_function =  &fitness_calculation_max;
+		fitness_function =  &fitness_calculation_max_soft_boundary;
 	}
 	if(min_flag == true){
 	
