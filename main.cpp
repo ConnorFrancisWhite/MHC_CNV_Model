@@ -537,5 +537,5 @@ int main(int argc, char **argv){
 	
 	genome.save(genome_file,arma::hdf5_binary);
   	allele_fitness.save(allele_fitness_file,arma::hdf5_binary);
-  	//gene_frequency.save(allele_frequency_file,arma::hdf5_binary);
+  	gene_frequency.save(allele_frequency_file,arma::hdf5_binary);
 }
